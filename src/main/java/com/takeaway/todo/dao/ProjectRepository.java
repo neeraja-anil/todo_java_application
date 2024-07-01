@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project,Long> {
     @Query(value = "SELECT * FROM projects q WHERE q.user_id=:user",nativeQuery = true)
-    List<Project> findByUserid(String user);
+    List<Project> findByUserid(Long user);
 }

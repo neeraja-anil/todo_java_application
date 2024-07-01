@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 
 @Service
@@ -21,5 +22,11 @@ public class ProjectService {
         project.setCreatedAt(Instant.now());
         return projectRepository.save(project);
 
+    }
+
+    public List<Project> getAllUserProjects(HttpSession session){
+        User currentUser = (User) session.getAttribute("user");
+        Long userId = currentUser.getId();
+        return projectRepository.findByUserid(userId);
     }
 }
