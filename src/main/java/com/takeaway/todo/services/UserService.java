@@ -28,13 +28,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
+
     public void loginUser(User user, HttpSession httpSession){
+
         String email = user.getEmail();
         Optional<User> optionalUser =  userRepository.findByEmail(email);
         if(optionalUser.isPresent()){
             // hash user typed password and match it with stored password
             User existingUser = optionalUser.get();
-            System.out.println(existingUser);
+            System.out.println(existingUser.getName());
 
             if (passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
                 httpSession.setAttribute("user", existingUser);
@@ -45,6 +47,7 @@ public class UserService {
             throw new RuntimeException("Invalid Credentials");
         }
     }
+
 
     public String logoutUser(HttpSession session){
         if(session.getAttribute("user") != null){

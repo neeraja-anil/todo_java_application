@@ -41,7 +41,7 @@ public class UserController {
                 return ResponseEntity.badRequest().body("Please add all fields");
             }
             userService.loginUser(user, httpSession);
-            return ResponseEntity.status(200).body("Login Success");
+            return ResponseEntity.status(200).body("Login Success" );
         } catch (Exception e) {
             return ResponseEntity.status(401).body("Invalid credentials");
         }
