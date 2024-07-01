@@ -12,14 +12,17 @@ public class TodoSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable());
-//                .authorizeRequests(authorizeRequests ->
-//                        authorizeRequests
-//                                .antMatchers("/api/register").permitAll()
-//                                .anyRequest().authenticated()
-//                )
-//                .httpBasic(withDefaults())
-//                .formLogin(withDefaults());
+        http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/api/register", "/api/sign-in", "/api/logout").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .formLogin(formLogin -> formLogin
+                        .loginProcessingUrl("/api/login")
+                        .defaultSuccessUrl("/api/home", true)
+                )
+                .httpBasic(httpBasic -> {});
 
 
         return http.build();
