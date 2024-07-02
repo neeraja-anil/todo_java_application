@@ -1,5 +1,6 @@
 package com.takeaway.todo.repo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,6 +11,8 @@ public class User {
     private Long id;
     private String name;
     private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     public User(){
